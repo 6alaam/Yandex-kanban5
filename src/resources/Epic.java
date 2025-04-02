@@ -7,6 +7,13 @@ public class Epic extends Task {
     //здесь нам нужен лист что бы привязать сабтаски к конкретному эпику
     private ArrayList<Subtask> subtaskList = new ArrayList<>();
 
+    public Epic(int id, String name, String description, Status status) {
+
+        super(id, name, description, status);
+
+    }
+
+
 
     public Epic(String taskName, String description, int id) {
         super(taskName, description, id);

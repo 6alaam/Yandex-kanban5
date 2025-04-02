@@ -1,17 +1,22 @@
-import Manager.TaskManger;
+import Manager.*;
+
 import resources.Epic;
 import resources.Subtask;
 import resources.Task;
 
 public class Main {
     public static void main(String[] args){
-        TaskManger taskManger = new TaskManger();
+        InMemoryTaskManager taskManger = Managers.getDefault();
+        /* изначально было так
+        HistoryManager historyManager = Managers.getDefaultHistory();*/
+
         // вот тут интересно, создали обьект типа таск , и дали обьекту имя таск1, и взаимодействие привычное с обьектом,
         // тоесть по имени обьекта мы и распечатать можем и добавить и тд и тп.
         Task task1 = new Task("test","tester");
         System.out.println(task1);
         taskManger.addTask(task1);
         System.out.println(task1);
+        System.out.println();
 
         // а вот здесь мы создаем задачу как положенно через метод аддТаск.
         // и многое становится непревычно как например поменять описание(description)
@@ -25,6 +30,8 @@ public class Main {
         // а вот тут мы берем метод получения задачи по айди, и через точку вызываем следующий метод
         // если по подробнее то тут написано у обьекта который ты получишь по айди (2) поменяй описание на охереть
         taskManger.getTaskById(2).setDescription("ОХЕРЕТЬ");
+        System.out.println(taskManger.getTaskById(2));
+        System.out.println();
 
 
         // тут порядок немного другой , но смысл тот же
@@ -66,7 +73,6 @@ public class Main {
         System.out.println();
         System.out.println(taskManger.addSubtask(new Subtask("субтаск добавленный ","добавли через метод", epic1.getId())));
         taskManger.printEpicWithSubtasks(8);
-        System.out.println();
 
         //taskManger.updateSubtask(taskManger.getSubtaskById(11).setDescription("офигенно"));
         // этод метод не работает потому что сет дискрипшен ничего не возвращает,

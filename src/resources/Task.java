@@ -23,6 +23,13 @@ public class Task {
         this.status = Status.NEW;
     }
 
+    public Task(int id, String taskName, String description, Status status) {
+        this.id = id;
+        this.taskName = taskName;
+        this.description = description;
+        this.status = status;
+    }
+
     public String getTaskName() {
         return taskName;
     }
