@@ -53,6 +53,9 @@ public class InMemoryTaskManager implements TaskManager {
     //ну тут ясно удалили все из хешмапы
     @Override
     public void deleteAllTask() {
+        for (Task task : tasks.values()){
+            historyManager.remove(task.getId());
+        }
         tasks.clear();
     }
 
@@ -61,6 +64,12 @@ public class InMemoryTaskManager implements TaskManager {
     // что бы не оставалась хешмапа сабтасков со ссылками на удаленный обьект
     @Override
     public void deleteAllEpics() {
+        for (Epic epic : epics.values()) {
+            historyManager.remove(epic.getId());
+        }
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
         epics.clear();
         subtasks.clear();
     }
@@ -68,6 +77,9 @@ public class InMemoryTaskManager implements TaskManager {
     //очень интересный метод для удаления сабтасков
     @Override
     public void deleteAllSubtask() {
+        for (Subtask subtask : subtasks.values()){
+            historyManager.remove(subtask.getId());
+        }
         subtasks.clear();
         // по идеии этого достаточно что бы удалить все сабтаски
         // так как о чистит именно хэшмапу где хранятся ВСЕ саб таски
@@ -182,6 +194,7 @@ public class InMemoryTaskManager implements TaskManager {
     // тут понятно удалил по айди
     @Override
     public Task deleteTaskByID(int id) {
+        historyManager.remove(id);
         return tasks.remove(id);
     }
 
@@ -193,6 +206,11 @@ public class InMemoryTaskManager implements TaskManager {
                 subtasks.remove(subtaskId.getId());
             }
         }
+        historyManager.remove(id);
+        for (Subtask subtaskId : epic.getSubtaskList()){
+            subtasks.remove(subtaskId.getId());
+            historyManager.remove(subtaskId.getId());
+        }
         return epics.remove(id);
     }
 
@@ -202,6 +220,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask deleteSubtaskById(int id) {
         Subtask subtask = subtasks.get(id);        // получили сабтаск по айди (а если точнее присвоили обьекту subtask ссылку на сабтаск из хешмапы)
+        historyManager.remove(id);
         if (subtask == null) {                     //тут правка
             return null;
         }

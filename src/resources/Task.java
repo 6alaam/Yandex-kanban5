@@ -30,6 +30,10 @@ public class Task {
         this.status = status;
     }
 
+    public Task(int id) {
+        this.id = id;
+    }
+
     public String getTaskName() {
         return taskName;
     }
