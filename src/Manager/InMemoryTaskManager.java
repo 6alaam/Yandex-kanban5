@@ -190,8 +190,7 @@ public class InMemoryTaskManager implements TaskManager {
     // тут понятно удалил по айди
     @Override
     public Object deleteTaskByID(int id) {
-        tasks.remove(id);
-        return null;
+      return tasks.remove(id);
     }
 
     @Override
